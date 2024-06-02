@@ -13,6 +13,6 @@ ENV SONARQUBE_JDBC_USERNAME=sonar \
     SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
 
 # Define volume mount points
-VOLUME /opt/sonarqube/data \
-       /opt/sonarqube/logs \
-       /opt/sonarqube/extensions
+# VOLUME /opt/sonarqube/data \
+#        /opt/sonarqube/logs \
+#        /opt/sonarqube/extensions
