@@ -1,15 +1,18 @@
-# Use the official SonarQube image as the base
+# Use the official SonarQube image as a base
 FROM sonarqube:latest
 
-# Install Nginx
-USER root
-RUN apt-get update && apt-get install -y nginx
+# Set the container name
+LABEL maintainer="Your Name fauzi.web19@gmail.com"
 
-# Copy Nginx configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose port 80
+# Expose port 80 within the Docker network
 EXPOSE 80
 
-# Start both Nginx and SonarQube
-CMD service nginx start && exec /opt/sonarqube/bin/run.sh
+# Set environment variables
+ENV SONARQUBE_JDBC_USERNAME=sonar \
+    SONARQUBE_JDBC_PASSWORD=sonar \
+    SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
+
+# Define volume mount points
+VOLUME /opt/sonarqube/data \
+       /opt/sonarqube/logs \
+       /opt/sonarqube/extensions
