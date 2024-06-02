@@ -1,5 +1,5 @@
 # Use the official SonarQube image as a base
-FROM sonarqube:latest
+FROM zikazama/sonarqube_service:latest
 
 # Set the container name
 LABEL maintainer="Your Name fauzi.web19@gmail.com"
