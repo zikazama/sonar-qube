@@ -2,7 +2,7 @@ version: '3'
 
 services:
   sonarqube:
-    image: sonarqube:latest
+    build: ./sonarqube
     container_name: sonarqube
     ports:
       - '9000:9000'
@@ -13,14 +13,18 @@ services:
       - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
     networks:
       - sonarnet
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://postgres:5432/sonarqube
+      - SONAR_JDBC_USERNAME=sonarqube
+      - SONAR_JDBC_PASSWORD=sonarqube
 
   postgres:
-    image: postgres:latest
+    build: ./postgres
     container_name: postgres
     environment:
-      POSTGRES_USER: sonarqube
-      POSTGRES_PASSWORD: sonarqube
-      POSTGRES_DB: sonarqube
+      - POSTGRES_USER=sonarqube
+      - POSTGRES_PASSWORD=sonarqube
+      - POSTGRES_DB=sonarqube
     volumes:
       - postgresql_data:/var/lib/postgresql/data
     networks:
@@ -35,4 +39,3 @@ volumes:
 
 networks:
   sonarnet:
-  
