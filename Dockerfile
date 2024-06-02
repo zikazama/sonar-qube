@@ -1,5 +1,15 @@
-# Use the official SonarQube image from Docker Hub
+# Use the official SonarQube image as the base
 FROM sonarqube:latest
 
-# Expose the necessary port for SonarQube
-EXPOSE 9000
+# Install Nginx
+USER root
+RUN apt-get update && apt-get install -y nginx
+
+# Copy Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start both Nginx and SonarQube
+CMD service nginx start && exec /opt/sonarqube/bin/run.sh
